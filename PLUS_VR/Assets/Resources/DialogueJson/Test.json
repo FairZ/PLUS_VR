@@ -1,0 +1,69 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "Harry",
+            "m_text": "Hello there",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 1,
+            "m_name": "Sally",
+            "m_text": "Howdy",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 2,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 2,
+            "m_name": "Adam",
+            "m_text": "Hello Both of you",
+            "m_options": [
+                {
+                    "m_text": "Harry",
+                    "m_destination": 3,
+                    "m_action": 1
+                },
+                {
+                    "m_text": "Sally",
+                    "m_destination": 4,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 3,
+            "m_name": "Adam",
+            "m_text": "Nice to meet you Harry",
+            "m_options": [
+                {
+                    "m_text": "Close",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        },
+        {
+            "m_id": 4,
+            "m_name": "Adam",
+            "m_text": "Nice to meet you Sally",
+            "m_options": [
+                {
+                    "m_text": "Close",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        }
+    ]
+}
