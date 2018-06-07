@@ -6,7 +6,7 @@ public class DialogueController : MonoBehaviour {
 
     //stores the current dialogue
     Dialogue m_currentDialogue;
-    //stores the position of the current node
+    //stores the position of the currently active node
     int m_currentNode;
 
     void Start()
@@ -28,5 +28,6 @@ public class DialogueController : MonoBehaviour {
     public void EndDialogue()
     {
         //end the dialogue and close the GUI
+        m_currentNode = 0;
     }
 }
