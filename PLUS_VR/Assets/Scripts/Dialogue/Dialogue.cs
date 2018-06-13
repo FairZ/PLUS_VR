@@ -32,4 +32,17 @@ public class Dialogue {
         }
     }
 
+    //retrieve a Node with a specific position
+    public Node GetNode(int _ID)
+    {
+        if (_ID >= 0 && _ID < m_nodes.Count)
+        {
+            return m_nodes[_ID];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }

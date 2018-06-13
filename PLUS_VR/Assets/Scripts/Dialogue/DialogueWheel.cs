@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueWheel : MonoBehaviour {
 
+    //options: 0 = top, 1 = left, 2 = right, 3 = bottom
     public List<GameObject> m_options;
 
     public DialogueController m_dialogueController;
@@ -13,6 +15,10 @@ public class DialogueWheel : MonoBehaviour {
 
     private int m_optionHover = -1;
 
+    private bool m_active = false;
+
+    private int m_optionCount = -1;
+
     void Start()
     {
         m_device = SteamVR_Controller.Input((int)m_controller.index);
@@ -20,28 +26,37 @@ public class DialogueWheel : MonoBehaviour {
 
     void Update()
     {
-        //if the user's thumb is a little away from the center of the trackpad
-        if(m_device.GetAxis().magnitude > 0.2)
+        if (m_active)
         {
-            int prevOption = m_optionHover;
-            m_optionHover = CalculateSegment();
+            //if the user's thumb is a little away from the center of the trackpad scale up the correct segment
+            if (m_device.GetAxis().magnitude > 0.2)
+            {
+                int prevOption = m_optionHover;
+                m_optionHover = CalculateSegment();
 
-            if(prevOption != m_optionHover)
-            {
-                if(prevOption != -1)
+                if (prevOption != m_optionHover)
                 {
-                    m_options[prevOption].transform.localScale = new Vector3(1,1,1);
+                    if (prevOption != -1)
+                    {
+                        m_options[prevOption].transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    m_options[m_optionHover].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
                 }
-                m_options[m_optionHover].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
             }
-        }
-        else
-        {
-            if (m_optionHover != -1)
+            //otherwise reset the scaled segment and set option to void
+            else
             {
-                m_options[m_optionHover].transform.localScale = new Vector3(1, 1, 1);
+                if (m_optionHover != -1)
+                {
+                    m_options[m_optionHover].transform.localScale = new Vector3(1, 1, 1);
+                }
+                m_optionHover = -1;
             }
-            m_optionHover = -1;
+            //when the trackpad is pressed send the choice if the option was valid
+            if (m_device.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && m_optionHover != -1 && m_optionHover <= m_optionCount)
+            {
+                m_dialogueController.Choose(m_optionHover);
+            }
         }
     }
 
@@ -105,4 +120,33 @@ public class DialogueWheel : MonoBehaviour {
         return segment;
     }
 
+    public void SetOptions(Node _dialogueNode)
+    {
+        //activate the wheel and reset the option count
+        m_active = true;
+        m_optionCount = -1;
+        //activate each option and set its text
+        for (int i = 0; i < _dialogueNode.m_options.Count; i++)
+        {
+            m_options[i].SetActive(true);
+            m_options[i].GetComponentInChildren<Text>().text = _dialogueNode.m_options[i].m_text;
+            //increment the option count for each available option
+            m_optionCount++;
+        }
+        //hide any unneccesary options
+        for (int j = m_optionCount+1; j < 4; j++)
+        {
+            m_options[j].SetActive(false);
+        }
+    }
+
+    public void HideWheel()
+    {
+        //deactivate the wheel and hide all segments
+        m_active = false;
+        for (int i = 0; i < 4; i++)
+        {
+            m_options[i].SetActive(false);
+        }
+    }
 }
