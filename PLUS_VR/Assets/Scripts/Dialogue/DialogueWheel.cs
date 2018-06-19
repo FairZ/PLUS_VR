@@ -39,8 +39,10 @@ public class DialogueWheel : MonoBehaviour {
                     if (prevOption != -1)
                     {
                         m_options[prevOption].transform.localScale = new Vector3(1, 1, 1);
+                        m_options[prevOption].GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.6f);
                     }
-                    m_options[m_optionHover].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+                    m_options[m_optionHover].transform.localScale = new Vector3(2, 2, 2);
+                    m_options[m_optionHover].GetComponentInChildren<Image>().color = Color.white;
                 }
             }
             //otherwise reset the scaled segment and set option to void
@@ -49,6 +51,7 @@ public class DialogueWheel : MonoBehaviour {
                 if (m_optionHover != -1)
                 {
                     m_options[m_optionHover].transform.localScale = new Vector3(1, 1, 1);
+                    m_options[m_optionHover].GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.6f);
                 }
                 m_optionHover = -1;
             }

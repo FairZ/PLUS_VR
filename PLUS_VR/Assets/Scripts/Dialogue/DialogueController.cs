@@ -16,14 +16,14 @@ public class DialogueController : MonoBehaviour {
     public GameObject m_dialogueDisplayObject;
     //where dialogue text is shown
     private DialogueDisplay m_dialogueDisplay;
+    //reference to the laser pointer script to correctly hide and show the laser
+    public LaserInteraction m_laserPointer;
 
     void Start()
     {
         m_dialogueDisplay = m_dialogueDisplayObject.GetComponent<DialogueDisplay>();
         m_currentDialogue = null;
         m_currentNode = 0;
-        LoadDialogue("Test");
-        StartDialogue();
     }
 
     public void LoadDialogue(string _JSONFileName)
@@ -47,6 +47,7 @@ public class DialogueController : MonoBehaviour {
     {
         //initialise the dialogue and show GUI
         m_currentNode = 0;
+        m_laserPointer.SetTalking(true);
         m_dialogueDisplayObject.SetActive(true);
         m_dialogueDisplay.SetNameText(m_currentDialogue.GetNode(m_currentNode).m_name);
         m_dialogueDisplay.SetDialogueText(m_currentDialogue.GetNode(m_currentNode).m_text);
@@ -65,6 +66,7 @@ public class DialogueController : MonoBehaviour {
     {
         //end the dialogue and close the GUI
         m_currentNode = 0;
+        m_laserPointer.SetTalking(false);
         m_dialogueWheel.HideWheel();
         m_dialogueDisplayObject.SetActive(false);
     }
