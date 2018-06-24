@@ -20,6 +20,8 @@ public class LaserInteraction : MonoBehaviour {
     private SteamVR_TrackedObject m_controller;
     private SteamVR_Controller.Device m_device;
 
+    public bool m_laserActive = true;
+
     void Start()
     {
         m_line = gameObject.GetComponent<LineRenderer>();
@@ -31,7 +33,7 @@ public class LaserInteraction : MonoBehaviour {
     void FixedUpdate()
     {
         m_chatButtonActive = false;
-        if (!m_talking)
+        if (!m_talking&&m_laserActive)
         {
             m_line.material.SetColor("_EmissionColor", m_standardColour);
             RaycastHit hit;
