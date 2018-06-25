@@ -20,6 +20,8 @@ public class LaserInteraction : MonoBehaviour {
     private SteamVR_TrackedObject m_controller;
     private SteamVR_Controller.Device m_device;
 
+    private TeleportMovement m_teleportControl;
+
     public bool m_laserActive = true;
 
     void Start()
@@ -27,7 +29,7 @@ public class LaserInteraction : MonoBehaviour {
         m_line = gameObject.GetComponent<LineRenderer>();
         m_controller = gameObject.GetComponent<SteamVR_TrackedObject>();
         m_device = SteamVR_Controller.Input((int)m_controller.index);
-
+        m_teleportControl = gameObject.GetComponent<TeleportMovement>();
     }
 
     void FixedUpdate()
@@ -70,5 +72,6 @@ public class LaserInteraction : MonoBehaviour {
     {
         m_talking = _talking;
         m_line.enabled = !_talking;
+        m_teleportControl.m_teleportAvailable = !_talking;
     }
 }
