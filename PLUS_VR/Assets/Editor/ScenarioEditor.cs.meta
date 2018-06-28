@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7fe6fa14d4f86444a9673c40118f084f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_PersistentViewDataDictionary: {instanceID: 0}
+  - m_scenarioNPCPrefab: {instanceID: 0}
+  - m_areaPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

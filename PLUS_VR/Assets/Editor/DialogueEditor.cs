@@ -32,13 +32,16 @@ public class DialogueEditor : EditorWindow {
     //code for layout of editor window
     void OnGUI()
     {
+
+        GUI.skin.textField.wordWrap = true;
+        
         //begin by showing the name of the dialogue currently being edited or to be loaded
         EditorGUILayout.Space();
         m_dialogueName = EditorGUILayout.TextField("Name of Dialogue", m_dialogueName);
         EditorGUILayout.Space();
 
         //show load clear and save buttons in a horizontal line and give them correct functions
-        Rect r = EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Load"))
         {
             LoadDialogue();
@@ -75,10 +78,9 @@ public class DialogueEditor : EditorWindow {
                 //display id number of node
                 EditorGUILayout.LabelField("ID: ", n.m_id.ToString());
                 //display and set character name in a text field
-                n.m_name = EditorGUILayout.TextField("Character Name", n.m_name);
-                //add a label and then an area to display and set the text for this node
-                EditorGUILayout.LabelField("Text:");
-                n.m_text = EditorGUILayout.TextArea(n.m_text,GUILayout.Height(50));
+                n.m_name = EditorGUILayout.TextField("Character Name:", n.m_name);
+                //display and set dialogue text in a text field
+                n.m_text = EditorGUILayout.TextField("Text:",n.m_text,GUILayout.Height(50));
                 //add a space and small horizontal line to seperate options section of node
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider,GUILayout.MaxWidth(75));
@@ -100,21 +102,27 @@ public class DialogueEditor : EditorWindow {
                         o.m_destination = EditorGUILayout.IntField("Destination ID:", o.m_destination);
                     }
                     //show a small button to remove the option
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Space(EditorGUI.indentLevel * 20);
                     if (GUILayout.Button("Delete Option", GUILayout.MaxWidth(100)))
                     {
                         n.m_options.RemoveAt(j);
                     }
+                    GUILayout.EndHorizontal();
 
                     EditorGUILayout.Space();
                 }
                 //if there can be more options, display an add option button
-                if(n.m_options.Count < 4)
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(EditorGUI.indentLevel * 20);
+                if (n.m_options.Count < 4)
                 {
                     if (GUILayout.Button("Add Option", GUILayout.MaxWidth(100)))
                     {
                         n.AddOption();
                     }
                 }
+                GUILayout.EndHorizontal();
                 //horizontal seperating bar to signal end of option region
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider, GUILayout.MaxWidth(75));
 

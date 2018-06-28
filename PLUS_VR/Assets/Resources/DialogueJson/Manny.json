@@ -4,43 +4,49 @@
             "m_id": 0,
             "m_name": "Manny",
             "m_text": "Happy go lucky me",
-            "m_options": []
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
         },
         {
             "m_id": 1,
             "m_name": "Adam",
             "m_text": "I hate you so much",
-            "m_options": []
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 2,
+                    "m_action": 1
+                }
+            ]
         },
         {
             "m_id": 2,
             "m_name": "Manny",
             "m_text": "Well that's rude",
-            "m_options": []
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 3,
+                    "m_action": 1
+                }
+            ]
         },
         {
             "m_id": 3,
             "m_name": "Adam",
             "m_text": "Damn Right it is!!!",
-            "m_options": []
-        },
-        {
-            "m_id": 4,
-            "m_name": "",
-            "m_text": "",
-            "m_options": []
-        },
-        {
-            "m_id": 5,
-            "m_name": "",
-            "m_text": "",
-            "m_options": []
-        },
-        {
-            "m_id": 6,
-            "m_name": "",
-            "m_text": "",
-            "m_options": []
+            "m_options": [
+                {
+                    "m_text": "Close",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
         }
     ]
 }

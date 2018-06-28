@@ -10,6 +10,9 @@ public class DialogueWheel : MonoBehaviour {
 
     public DialogueController m_dialogueController;
 
+    public float m_delayTime = 1.0f;
+    private float m_delay;
+
     public SteamVR_TrackedObject m_controller;
     private SteamVR_Controller.Device m_device;
 
@@ -28,9 +31,13 @@ public class DialogueWheel : MonoBehaviour {
     {
         if (m_active)
         {
+            m_delay -= Time.deltaTime;
+                           
             //if the user's thumb is a little away from the center of the trackpad scale up the correct segment
-            if (m_device.GetAxis().magnitude > 0.2)
+            if (m_device.GetAxis().magnitude > 0.2 && m_delay < 0)
             {
+                m_delay = -1;
+
                 int prevOption = m_optionHover;
                 m_optionHover = CalculateSegment();
 
@@ -43,6 +50,11 @@ public class DialogueWheel : MonoBehaviour {
                     }
                     m_options[m_optionHover].transform.localScale = new Vector3(2, 2, 2);
                     m_options[m_optionHover].GetComponentInChildren<Image>().color = Color.white;
+                    //when the trackpad is pressed send the choice if the option was valid
+                }
+                if (m_device.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && m_optionHover != -1 && m_optionHover <= m_optionCount)
+                {
+                    m_dialogueController.Choose(m_optionHover);
                 }
             }
             //otherwise reset the scaled segment and set option to void
@@ -55,11 +67,7 @@ public class DialogueWheel : MonoBehaviour {
                 }
                 m_optionHover = -1;
             }
-            //when the trackpad is pressed send the choice if the option was valid
-            if (m_device.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && m_optionHover != -1 && m_optionHover <= m_optionCount)
-            {
-                m_dialogueController.Choose(m_optionHover);
-            }
+            
         }
     }
 
@@ -127,6 +135,7 @@ public class DialogueWheel : MonoBehaviour {
     {
         //activate the wheel and reset the option count
         m_active = true;
+        m_delay = m_delayTime;
         m_optionCount = -1;
         //activate each option and set its text
         for (int i = 0; i < _dialogueNode.m_options.Count; i++)

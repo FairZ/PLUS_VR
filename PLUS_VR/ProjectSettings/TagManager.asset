@@ -7,6 +7,7 @@ TagManager:
   - DialogueController
   - NPC
   - TeleportSurface
+  - ObjectiveSystem
   layers:
   - Default
   - TransparentFX

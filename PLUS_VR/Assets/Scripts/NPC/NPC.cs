@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class NPC : MonoBehaviour {
 
     public List<string> m_dialoguePaths;
-    protected int m_activeDialogue = 0;
+    public int m_activeDialogue = 0;
 
-    public DialogueController m_dialogueController;
+    public bool m_scenarioNPC = false;
+    public bool m_objectiveTrigger = false;
+
+    protected DialogueController m_dialogueController;
 
     void Start()
     {
@@ -15,9 +19,16 @@ public class NPC : MonoBehaviour {
         gameObject.tag = "NPC";
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
+        if (m_objectiveTrigger)
+            m_dialogueController.m_objectiveDialogue = true;
+
         m_dialogueController.LoadDialogue(m_dialoguePaths[m_activeDialogue]);
-        m_dialogueController.StartDialogue();
+    }
+
+    public int GetNumberOfDialogues()
+    {
+        return m_dialoguePaths.Count;
     }
 }

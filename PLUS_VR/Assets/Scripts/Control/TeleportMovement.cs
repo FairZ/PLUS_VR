@@ -59,11 +59,9 @@ public class TeleportMovement : MonoBehaviour {
                     m_line.material.SetColor("_EmissionColor", m_validColour);
                     m_reticule.SetActive(true);
                     m_reticuleTransform.position = hit.point +m_reticuleOffsetFromRayHit;
-                    m_reticuleTransform.rotation = Quaternion.Euler(0, gameObject.transform.rotation.eulerAngles.y, 0);
+                    m_reticuleTransform.rotation = Quaternion.Euler(0, m_head.transform.rotation.eulerAngles.y, 0);
                     m_reticule.GetComponent<ReticuleController>().ShowBody(hit.distance > 1.0f);
-                    Vector3 headRot = m_head.transform.localRotation.eulerAngles;
-                    headRot.y -= gameObject.transform.rotation.eulerAngles.y;
-                    m_reticule.GetComponent<ReticuleController>().SetHeadRotation(Quaternion.Euler(headRot));
+                   
                     if (m_device.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                     {
                         m_teleportIcon.color = Color.white;

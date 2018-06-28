@@ -19,11 +19,24 @@ public class DialogueController : MonoBehaviour {
     //reference to the laser pointer script to correctly hide and show the laser
     public LaserInteraction m_laserPointer;
 
+    public bool m_objectiveDialogue = false;
+
+    public ObjectiveSystem m_objectiveSystem;
+
+    private bool m_shouldStart = false;
+
     void Start()
     {
         m_dialogueDisplay = m_dialogueDisplayObject.GetComponent<DialogueDisplay>();
         m_currentDialogue = null;
         m_currentNode = 0;
+        m_objectiveSystem = GameObject.FindGameObjectWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
+    }
+
+    void Update()
+    {
+        if (m_shouldStart)
+            StartDialogue();
     }
 
     public void LoadDialogue(string _JSONFileName)
@@ -36,6 +49,7 @@ public class DialogueController : MonoBehaviour {
         {
             string jsonData = File.ReadAllText(path);
             m_currentDialogue = JsonUtility.FromJson<Dialogue>(jsonData);
+            m_shouldStart = true;
         }
         else
         {
@@ -43,7 +57,7 @@ public class DialogueController : MonoBehaviour {
         }
     }
 
-    public void StartDialogue()
+    private void StartDialogue()
     {
         //initialise the dialogue and show GUI
         m_currentNode = 0;
@@ -52,6 +66,7 @@ public class DialogueController : MonoBehaviour {
         m_dialogueDisplay.SetNameText(m_currentDialogue.GetNode(m_currentNode).m_name);
         m_dialogueDisplay.SetDialogueText(m_currentDialogue.GetNode(m_currentNode).m_text);
         m_dialogueWheel.SetOptions(m_currentDialogue.GetNode(m_currentNode));
+        m_shouldStart = false;
     }
 
     private void GoToNode(int _ID)
@@ -69,6 +84,11 @@ public class DialogueController : MonoBehaviour {
         m_laserPointer.SetTalking(false);
         m_dialogueWheel.HideWheel();
         m_dialogueDisplayObject.SetActive(false);
+        if(m_objectiveDialogue)
+        {
+            m_objectiveSystem.ObjectiveComplete();
+            m_objectiveDialogue = false;
+        }
     }
 
     public void Choose(int _choice)

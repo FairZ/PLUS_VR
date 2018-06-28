@@ -1,0 +1,28 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "Player",
+            "m_text": "Hello you two",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 1,
+            "m_name": "Harry and Sally",
+            "m_text": "Hello *in unison*",
+            "m_options": [
+                {
+                    "m_text": "Close",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        }
+    ]
+}
