@@ -7,7 +7,7 @@ public class ScenarioEditor : EditorWindow {
     ObjectiveSystem m_objectiveSystem;
     List<Objective> m_objectives;
     List<NPC> m_scenarioNPCs;
-    //add list of areas;
+    List<ObjectiveArea> m_areas;
 
     bool m_showObjectives = true;
     bool m_showScenarioNPCs = false;
@@ -25,7 +25,11 @@ public class ScenarioEditor : EditorWindow {
     void OnFocus()
     {
         m_objectiveSystem = GameObject.FindGameObjectWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
-        m_scenarioNPCs.Clear();
+        if (m_scenarioNPCs != null)
+            m_scenarioNPCs.Clear();
+        else
+            m_scenarioNPCs = new List<NPC>();
+
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC"))
         {
             NPC temp = go.GetComponent<NPC>();
@@ -34,7 +38,20 @@ public class ScenarioEditor : EditorWindow {
                 m_scenarioNPCs.Add(temp);
             }
         }
-        if(m_objectiveSystem == null)
+        if (m_areas != null)
+            m_areas.Clear();
+        else
+            m_areas = new List<ObjectiveArea>();
+        
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("ObjectiveArea"))
+        {
+            ObjectiveArea temp = go.GetComponent<ObjectiveArea>();
+            if (temp != null)
+            {
+                m_areas.Add(temp);
+            }
+        }
+        if (m_objectiveSystem == null)
         {
             Debug.Log("No Objective System found, please add an object with an attached ObjectiveSystem script and set its tag to ObjectiveSystem");
         }
@@ -53,6 +70,7 @@ public class ScenarioEditor : EditorWindow {
         EditorGUILayout.Space();
         m_showObjectives = EditorGUILayout.Toggle("Show Objectives: ", m_showObjectives);
         m_showScenarioNPCs = EditorGUILayout.Toggle("Show Scenario NPCs: ", m_showScenarioNPCs);
+        m_showAreas = EditorGUILayout.Toggle("Show Objective Areas", m_showAreas);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         if (m_showObjectives)
@@ -142,9 +160,6 @@ public class ScenarioEditor : EditorWindow {
             }
             for(int i = 0; i < m_scenarioNPCs.Count; i++)
             {
-                // add or remove dialogue paths and display them all
-                // show all necesarry data
-                //remove NPC button
                 m_scenarioNPCs[i].gameObject.name = EditorGUILayout.TextField("Name: ", m_scenarioNPCs[i].gameObject.name);
                 EditorGUILayout.LabelField("Dialogue File Names:");
                 EditorGUI.indentLevel++;
@@ -178,7 +193,7 @@ public class ScenarioEditor : EditorWindow {
                     EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                 }
             }
-            if (m_objectives.Count != 0)
+            if (m_scenarioNPCs.Count != 0)
             {
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             }
@@ -190,10 +205,55 @@ public class ScenarioEditor : EditorWindow {
         }
         if(m_showAreas)
         {
-            //add all area stuff here
+            if (m_areas.Count == 0)
+            {
+                EditorGUILayout.LabelField("No Objective Areas added");
+            }
+            for (int i = 0; i < m_areas.Count; i++)
+            {
+                m_areas[i].gameObject.name = EditorGUILayout.TextField("Name: ", m_areas[i].gameObject.name);
+                
+                if (GUILayout.Button("Remove Area (will clear from level)", GUILayout.MaxWidth(250)))
+                {
+                    RemoveArea(i);
+                }
+                if (i != m_areas.Count - 1)
+                {
+                    EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                }
+            }
+            if (m_areas.Count != 0)
+            {
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            }
+            if (GUILayout.Button("Add Objective Area"))
+            {
+                AddArea();
+            }
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
         EditorGUILayout.EndScrollView();
 
+    }
+
+    private void RemoveArea(int _index)
+    {
+        GameObject.DestroyImmediate(m_areas[_index].gameObject);
+        m_areas.RemoveAt(_index);
+    }
+
+    private void AddArea()
+    {
+        if (m_objectiveSystem.m_objectiveAreaPrefab != null)
+        {
+            GameObject.Instantiate(m_objectiveSystem.m_objectiveAreaPrefab);
+            EditorWindow.FocusWindowIfItsOpen<SceneView>();
+            EditorWindow.FocusWindowIfItsOpen<ScenarioEditor>();
+        }
+        else
+        {
+            Debug.LogError("No Objective Area prefab set, please add the prefab from the Editor folder to the objective system");
+        }
     }
 
     private void AddScenarioNPC()

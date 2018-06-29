@@ -7,7 +7,7 @@ public class ObjectiveSystem : MonoBehaviour {
     
     public List<Objective> m_objectives;
     public GameObject m_scenarioNPCPrefab;
-    public GameObject m_goToAreaPrefab;
+    public GameObject m_objectiveAreaPrefab;
 
     Objective m_currentObjective;
     int m_currentObjectiveIndex = 0;

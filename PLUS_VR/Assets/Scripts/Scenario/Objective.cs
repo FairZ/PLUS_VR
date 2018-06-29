@@ -19,6 +19,7 @@ public class Objective {
     public int m_postObjectiveDialogueIndex;
 
     //Go-To-Area variables
+    public ObjectiveArea m_area;
 
     public virtual void OnBegin()
     {
@@ -28,8 +29,10 @@ public class Objective {
                 m_NPC.m_activeDialogue = m_objectiveDialogueIndex;
                 m_NPC.m_objectiveTrigger = true;
                 break;
+
             case ObjectiveType.GO_TO_AREA:
-                //add code here
+                m_area.m_objectiveTrigger = true;
+                m_area.gameObject.SetActive(true);
                 break;
         }
     }
@@ -43,7 +46,8 @@ public class Objective {
                 m_NPC.m_objectiveTrigger = false;
                 break;
             case ObjectiveType.GO_TO_AREA:
-                //add code here
+                m_area.m_objectiveTrigger = false;
+                m_area.gameObject.SetActive(false);
                 break;
         }
     }

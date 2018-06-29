@@ -319,9 +319,10 @@ GameObject:
   - component: {fileID: 350884760}
   - component: {fileID: 350884759}
   - component: {fileID: 350884758}
+  - component: {fileID: 350884763}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,6 +430,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &350884763
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 350884757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &452228274
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +786,7 @@ MonoBehaviour:
     m_NPC: {fileID: 1234315840}
     m_objectiveDialogueIndex: 0
     m_postObjectiveDialogueIndex: 0
+    m_area: {fileID: 0}
   - m_quickTitle: Talk To Harry and Sally
     m_description: Go and talk to Harry and Sally and see what you can find out
     m_complete: 0
@@ -780,9 +794,11 @@ MonoBehaviour:
     m_NPC: {fileID: 1364310394}
     m_objectiveDialogueIndex: 1
     m_postObjectiveDialogueIndex: 2
+    m_area: {fileID: 0}
   m_scenarioNPCPrefab: {fileID: 1514332164964018, guid: b31f15fe617d9924f844adf8e023c6b7,
     type: 2}
-  m_goToAreaPrefab: {fileID: 0}
+  m_objectiveAreaPrefab: {fileID: 1896269469516500, guid: e022872cc3f154746a0f3d10cc7126fc,
+    type: 2}
 --- !u!4 &619748270
 Transform:
   m_ObjectHideFlags: 0
