@@ -13,6 +13,8 @@ public class ObjectiveSystem : MonoBehaviour {
     public Text m_TitleText;
     public Text m_descriptionText;
 
+    public CompassRotation m_compass;
+
     Objective m_currentObjective;
     int m_currentObjectiveIndex = 0;
 
@@ -21,8 +23,19 @@ public class ObjectiveSystem : MonoBehaviour {
         //load scenario, spawn NPCs??
         m_currentObjective = m_objectives[m_currentObjectiveIndex];
         m_currentObjective.OnBegin();
-        m_TitleText.text = m_objectives[m_currentObjectiveIndex].m_quickTitle;
-        m_descriptionText.text = m_objectives[m_currentObjectiveIndex].m_description;
+        m_TitleText.text = m_currentObjective.m_quickTitle;
+        m_descriptionText.text = m_currentObjective.m_description;
+        
+        switch(m_currentObjective.m_type)
+        {
+            case Objective.ObjectiveType.TALK_TO:
+                m_compass.m_aimPoint = m_currentObjective.m_NPC.transform.position;
+                break;
+            case Objective.ObjectiveType.GO_TO_AREA:
+                m_compass.m_aimPoint = m_currentObjective.m_area.transform.position;
+                break;
+        }
+        
     }
 
     public void ObjectiveComplete()
@@ -35,6 +48,16 @@ public class ObjectiveSystem : MonoBehaviour {
             m_currentObjective.OnBegin();
             m_TitleText.text = m_currentObjective.m_quickTitle;
             m_descriptionText.text = m_currentObjective.m_description;
+
+            switch (m_currentObjective.m_type)
+            {
+                case Objective.ObjectiveType.TALK_TO:
+                    m_compass.m_aimPoint = m_currentObjective.m_NPC.transform.position;
+                    break;
+                case Objective.ObjectiveType.GO_TO_AREA:
+                    m_compass.m_aimPoint = m_currentObjective.m_area.transform.position;
+                    break;
+            }
         }
         else
         {

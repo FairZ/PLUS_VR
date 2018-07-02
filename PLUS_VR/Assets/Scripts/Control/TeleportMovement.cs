@@ -40,7 +40,7 @@ public class TeleportMovement : MonoBehaviour {
         m_teleportIcon = m_teleportButton.GetComponent<Image>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if(m_device.GetPress(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)&&m_teleportAvailable)
         {
