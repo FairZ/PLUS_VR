@@ -40,6 +40,7 @@ public class ObjectiveSystem : MonoBehaviour {
 
     public void ObjectiveComplete()
     {
+        PerformanceTracker.AddEvent(PLUSEventType.ObjectiveComplete);
         m_currentObjective.OnComplete();
         m_currentObjectiveIndex++;
         if(m_currentObjectiveIndex < m_objectives.Count)

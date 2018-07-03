@@ -11,7 +11,7 @@ public class DialogueEditor : EditorWindow {
     Vector2 scrollPos;
 
     //possible actions for Options
-    string[] actionOptions = new string[] { "Close Dialogue", "Go to Node", "Stop and Search" };
+    string[] actionOptions = new string[] { "Close Dialogue", "Go to Node", "Stop and Search", "Correct Answer","Incorrect Answer" };
 
     //Dialogue holding the currently worked on piece of dialogue
     Dialogue m_dialogue;
@@ -97,7 +97,7 @@ public class DialogueEditor : EditorWindow {
                     //display and set the action of this option 
                     o.m_action = EditorGUILayout.Popup("Action:",o.m_action, actionOptions);
                     //if the action is to go to another Node, display and set the destination with an integer field
-                    if (o.m_action == 1)
+                    if (o.m_action == 1 || o.m_action == 3 || o.m_action == 4)
                     {
                         o.m_destination = EditorGUILayout.IntField("Destination ID:", o.m_destination);
                     }

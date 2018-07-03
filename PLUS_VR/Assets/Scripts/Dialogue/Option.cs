@@ -6,7 +6,9 @@ public enum Actions
 {
     CLOSE_DIALOGUE,
     GO_TO_NODE,
-    STOP_AND_SEARCH
+    STOP_AND_SEARCH,
+    CORRECT_ANSWER,
+    INCORRECT_ANSWER
 };
 
 //each node of dialogue contains a list of options which determine what occurs when that option is selected

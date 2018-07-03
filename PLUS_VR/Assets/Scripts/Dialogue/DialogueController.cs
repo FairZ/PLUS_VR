@@ -106,8 +106,16 @@ public class DialogueController : MonoBehaviour {
                 break;
             case (int)Actions.STOP_AND_SEARCH:
                 ///TODO: start stop and search
+                PerformanceTracker.AddEvent(PLUSEventType.StopAndSearchStart);
                 break;
-
+            case (int)Actions.CORRECT_ANSWER:
+                PerformanceTracker.AddEvent(PLUSEventType.CorrectAnswer);
+                GoToNode(chosenOption.m_destination);
+                break;
+            case (int)Actions.INCORRECT_ANSWER:
+                PerformanceTracker.AddEvent(PLUSEventType.IncorrectAnswer);
+                GoToNode(chosenOption.m_destination);
+                break;
         }
     }
 }
