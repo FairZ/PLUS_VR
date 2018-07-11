@@ -11,7 +11,6 @@ public class ObjectiveArea : MonoBehaviour {
 
     void Start()
     {
-        m_objectiveSystem = GameObject.FindGameObjectWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
         gameObject.SetActive(false);
     }
 
@@ -21,6 +20,11 @@ public class ObjectiveArea : MonoBehaviour {
         {
             m_objectiveSystem.ObjectiveComplete();
         }
+    }
+
+    public void SetObjectiveSystem(ObjectiveSystem _objectiveSystem)
+    {
+        m_objectiveSystem = _objectiveSystem;
     }
 
 }

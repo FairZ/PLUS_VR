@@ -22,15 +22,12 @@ public class DialogueWheel : MonoBehaviour {
 
     private int m_optionCount = -1;
 
-    void Start()
-    {
-        m_device = SteamVR_Controller.Input((int)m_controller.index);
-    }
-
     void Update()
     {
         if (m_active)
         {
+            //in update to account for re-assignment
+            m_device = SteamVR_Controller.Input((int)m_controller.index);
             m_delay -= Time.deltaTime;
                            
             //if the user's thumb is a little away from the center of the trackpad scale up the correct segment

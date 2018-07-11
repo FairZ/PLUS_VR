@@ -32,7 +32,9 @@ public class TeleportMovement : MonoBehaviour {
     {
         m_line = gameObject.GetComponent<LineRenderer>();
         m_controller = gameObject.GetComponent<SteamVR_TrackedObject>();
-        m_device = SteamVR_Controller.Input((int)m_controller.index);
+        //always the same hand (not the best thing to do but would otherwise
+        //require a massive reset of hands if they are reassigned, which there is no check for)
+        m_device = SteamVR_Controller.Input(2);
         m_laser = gameObject.GetComponent<LaserInteraction>();
         m_reticule = Instantiate(m_reticulePrefab);
         m_reticule.SetActive(false);
@@ -42,7 +44,9 @@ public class TeleportMovement : MonoBehaviour {
 
     void Update()
     {
-        if(m_device.GetPress(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)&&m_teleportAvailable)
+        //in update to account for re-assignment
+        m_device = SteamVR_Controller.Input((int)m_controller.index);
+        if (m_device.GetPress(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)&&m_teleportAvailable)
         {
             m_laser.m_laserActive = false;
             m_teleportButton.SetActive(true);

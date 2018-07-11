@@ -1,0 +1,16 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "Player",
+            "m_text": "I'm gunna search you",
+            "m_options": [
+                {
+                    "m_text": "S&S",
+                    "m_destination": 0,
+                    "m_action": 2
+                }
+            ]
+        }
+    ]
+}

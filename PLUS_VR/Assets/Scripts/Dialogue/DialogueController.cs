@@ -23,6 +23,8 @@ public class DialogueController : MonoBehaviour {
 
     public ObjectiveSystem m_objectiveSystem;
 
+    public StopAndSearch m_stopAndSearch;
+
     private bool m_shouldStart = false;
 
     void Start()
@@ -30,7 +32,7 @@ public class DialogueController : MonoBehaviour {
         m_dialogueDisplay = m_dialogueDisplayObject.GetComponent<DialogueDisplay>();
         m_currentDialogue = null;
         m_currentNode = 0;
-        m_objectiveSystem = GameObject.FindGameObjectWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
+        m_objectiveSystem = GameObject.FindWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
     }
 
     void Update()
@@ -43,18 +45,11 @@ public class DialogueController : MonoBehaviour {
     {
         //load in the dialogue from a given path
         //set the path to the file
-        string path = Application.dataPath + "/Resources/DialogueJson/" + _JSONFileName + ".json";
-        //if the file exists read from it and load in the dialogue otherwise show error
-        if (File.Exists(path))
-        {
-            string jsonData = File.ReadAllText(path);
-            m_currentDialogue = JsonUtility.FromJson<Dialogue>(jsonData);
-            m_shouldStart = true;
-        }
-        else
-        {
-            Debug.Log("invalid file name");
-        }
+        
+        string jsonData = Resources.Load<TextAsset>("DialogueJson/" + _JSONFileName).text ;
+        m_currentDialogue = JsonUtility.FromJson<Dialogue>(jsonData);
+        m_shouldStart = true;
+        
     }
 
     private void StartDialogue()
@@ -105,7 +100,11 @@ public class DialogueController : MonoBehaviour {
                 GoToNode(chosenOption.m_destination);
                 break;
             case (int)Actions.STOP_AND_SEARCH:
-                ///TODO: start stop and search
+                //Stop and search will always be the final objective so to resolve overdrawing on the results board
+                //the objective is deactivated and will be completed once the stop and search is done
+                m_stopAndSearch.BeginStopAndSearch();
+                m_objectiveDialogue = false;
+                EndDialogue();
                 PerformanceTracker.AddEvent(PLUSEventType.StopAndSearchStart);
                 break;
             case (int)Actions.CORRECT_ANSWER:

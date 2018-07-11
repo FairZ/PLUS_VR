@@ -1,0 +1,40 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "NPC",
+            "m_text": "Choose the option on your right hand to continue",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 1,
+            "m_name": "NPC",
+            "m_text": "Well Done, that's how you have conversations with people",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 2,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 2,
+            "m_name": "NPC",
+            "m_text": "Close this dialogue and look at your notebook for your next objective",
+            "m_options": [
+                {
+                    "m_text": "Close",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        }
+    ]
+}

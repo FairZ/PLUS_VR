@@ -6,14 +6,13 @@ public enum PLUSEventType
     ObjectiveComplete,
     CorrectAnswer,
     IncorrectAnswer,
-    StopAndSearchStart,
-    StopAndSearchEnd
+    StopAndSearchStart
 }
 
 public struct PLUSEvent
 {
-    float m_time;
-    PLUSEventType m_type;
+    public float m_time;
+    public PLUSEventType m_type;
 
     public PLUSEvent(PLUSEventType _eventType)
     {
@@ -24,6 +23,21 @@ public struct PLUSEvent
 
 public static class PerformanceTracker {
     private static List<PLUSEvent> m_events;
+    public static float m_startTime;
+    public static float m_endTime;
+
+    public static void StartScenario()
+    {
+        if (m_events == null)
+            m_events = new List<PLUSEvent>();
+        m_events.Clear();
+        m_startTime = Time.realtimeSinceStartup;
+    }
+
+    public static void EndScenario()
+    {
+        m_endTime = Time.realtimeSinceStartup;
+    }
 
     public static void AddEvent(PLUSEventType _eventType)
     {

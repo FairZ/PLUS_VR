@@ -14,6 +14,7 @@ public class LaserInteraction : MonoBehaviour {
     public DialogueController m_dialogueController;
 
     private bool m_talking = false;
+    private bool m_stopAndSearch = false;
 
     private LineRenderer m_line;
 
@@ -28,14 +29,16 @@ public class LaserInteraction : MonoBehaviour {
     {
         m_line = gameObject.GetComponent<LineRenderer>();
         m_controller = gameObject.GetComponent<SteamVR_TrackedObject>();
-        m_device = SteamVR_Controller.Input((int)m_controller.index);
+        //always the same hand (not the best thing to do but would otherwise
+        //require a massive reset of hands if they are reassigned, which there is no check for)
+        m_device = SteamVR_Controller.Input(2);
         m_teleportControl = gameObject.GetComponent<TeleportMovement>();
     }
 
     void FixedUpdate()
     {
         m_chatButtonActive = false;
-        if (!m_talking&&m_laserActive)
+        if (!m_talking&&m_laserActive&&!m_stopAndSearch)
         {
             m_line.material.SetColor("_EmissionColor", m_standardColour);
             RaycastHit hit;
@@ -46,7 +49,9 @@ public class LaserInteraction : MonoBehaviour {
                 {
                     m_chatButtonActive = true;
                     m_line.material.SetColor("_EmissionColor", m_hoverColour);
-                    if(m_device.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                    //in update to account for re-assignment
+                    m_device = SteamVR_Controller.Input((int)m_controller.index);
+                    if (m_device.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                     {
                         m_chatButton.GetComponent<Image>().color = Color.white;
                     }
@@ -66,6 +71,10 @@ public class LaserInteraction : MonoBehaviour {
             }
         }
         m_chatButton.SetActive(m_chatButtonActive);
+        if(m_stopAndSearch)
+        {
+            m_line.enabled = false;
+        }
     }
 
     public void SetTalking(bool _talking)
@@ -73,5 +82,11 @@ public class LaserInteraction : MonoBehaviour {
         m_talking = _talking;
         m_line.enabled = !_talking;
         m_teleportControl.m_teleportAvailable = !_talking;
+    }
+
+    public void SetStopAndSearch(bool _stopAndSearch)
+    {
+        m_stopAndSearch = _stopAndSearch;
+        m_line.enabled = false;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 
 public class ScenarioEditor : EditorWindow {
 
@@ -22,9 +23,15 @@ public class ScenarioEditor : EditorWindow {
         GetWindow<ScenarioEditor>("Scenario Editor");
     }
 
+    private void OnInspectorUpdate()
+    {
+        m_objectiveSystem = null;
+        m_objectiveSystem = GameObject.FindWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
+    }
+
     void OnFocus()
     {
-        m_objectiveSystem = GameObject.FindGameObjectWithTag("ObjectiveSystem").GetComponent<ObjectiveSystem>();
+        
         if (m_scenarioNPCs != null)
             m_scenarioNPCs.Clear();
         else
@@ -70,7 +77,12 @@ public class ScenarioEditor : EditorWindow {
         EditorGUILayout.Space();
         m_showObjectives = EditorGUILayout.Toggle("Show Objectives: ", m_showObjectives);
         m_showScenarioNPCs = EditorGUILayout.Toggle("Show Scenario NPCs: ", m_showScenarioNPCs);
-        m_showAreas = EditorGUILayout.Toggle("Show Objective Areas", m_showAreas);
+        m_showAreas = EditorGUILayout.Toggle("Show Objective Areas: ", m_showAreas);
+        if(GUILayout.Button("Save"))
+        {
+            EditorSceneManager.MarkAllScenesDirty();
+            EditorSceneManager.SaveOpenScenes();
+        }
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         if (m_showObjectives)
@@ -116,7 +128,7 @@ public class ScenarioEditor : EditorWindow {
                         }
                         break;
                     case Objective.ObjectiveType.GO_TO_AREA:
-
+                        m_objectives[i].m_area = (ObjectiveArea)EditorGUILayout.ObjectField("Area: ", m_objectives[i].m_area, typeof(ObjectiveArea), true);
                         break;
                 }
                 EditorGUILayout.Space();

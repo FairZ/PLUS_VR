@@ -1,0 +1,100 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "Player",
+            "m_text": "Hello Ma'am, I believe you called in a report to us",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 1,
+            "m_name": "Caller",
+            "m_text": "Oh hello officer! Thank you for coming, there's a man with a knife",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 2,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 2,
+            "m_name": "Player",
+            "m_text": "Calm down madam, can you give me a description of him?",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 3,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 3,
+            "m_name": "Caller",
+            "m_text": "Yes, sorry officer, I'm Leslie by the way",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 4,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 4,
+            "m_name": "Leslie",
+            "m_text": "He's a tallish man wearing a leather jacket, he has black hair I think",
+            "m_options": [
+                {
+                    "m_text": "Where",
+                    "m_destination": 5,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 5,
+            "m_name": "Player",
+            "m_text": "Where is he now madam?",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 6,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 6,
+            "m_name": "Leslie",
+            "m_text": "He's up the street to my left, please deal with him",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 7,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 7,
+            "m_name": "Player",
+            "m_text": "Don't worry madam I will, in the mean time stay put in case I have any more questions",
+            "m_options": [
+                {
+                    "m_text": "Bye",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        }
+    ]
+}

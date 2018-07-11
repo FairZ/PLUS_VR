@@ -1,0 +1,96 @@
+{
+    "m_nodes": [
+        {
+            "m_id": 0,
+            "m_name": "Player",
+            "m_text": "Hello again madam, I have a question or two",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 1,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 1,
+            "m_name": "Leslie",
+            "m_text": "Sure, how can I help?",
+            "m_options": [
+                {
+                    "m_text": "Who?",
+                    "m_destination": 2,
+                    "m_action": 1
+                },
+                {
+                    "m_text": "Where?",
+                    "m_destination": 4,
+                    "m_action": 1
+                },
+                {
+                    "m_text": "Bye",
+                    "m_destination": 4,
+                    "m_action": 0
+                }
+            ]
+        },
+        {
+            "m_id": 2,
+            "m_name": "Player",
+            "m_text": "What was the description of the suspect again?",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 3,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 3,
+            "m_name": "Leslie",
+            "m_text": "He's tallish, white, and wearing a leather jacket",
+            "m_options": [
+                {
+                    "m_text": "More",
+                    "m_destination": 1,
+                    "m_action": 1
+                },
+                {
+                    "m_text": "Bye",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        },
+        {
+            "m_id": 4,
+            "m_name": "Player",
+            "m_text": "Where is the suspect again?",
+            "m_options": [
+                {
+                    "m_text": "Next",
+                    "m_destination": 5,
+                    "m_action": 1
+                }
+            ]
+        },
+        {
+            "m_id": 5,
+            "m_name": "Leslie",
+            "m_text": "To my Left, up the road, on the corner",
+            "m_options": [
+                {
+                    "m_text": "More",
+                    "m_destination": 1,
+                    "m_action": 1
+                },
+                {
+                    "m_text": "Bye",
+                    "m_destination": 0,
+                    "m_action": 0
+                }
+            ]
+        }
+    ]
+}
